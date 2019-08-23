@@ -2,6 +2,32 @@ const axios = require('axios');
 const Desenvolvedor = require('../model/Desenvolvedor');
 
 module.exports = {
+
+    async consultar(requisicao, resposta) {
+        const { idusuariologado } = requisicao.headers;
+
+        const usuarioLogado = await Desenvolvedor.findById(idusuariologado);
+
+        //Buscando usuários que não seja igual ao usuário logado
+        //Não esteja entre aqueles que já receberam likes
+        //Não esteje entre aquele que já receberam dislikes
+        const usuarios = await Desenvolvedor.find({
+            $and: [
+                { 
+                    _id: { $ne: idusuariologado } 
+                },
+                { 
+                    _id: { $nin: usuarioLogado.likes } 
+                },
+                { 
+                    _id: { $nin: usuarioLogado.dislikes } 
+                },
+            ]
+        })
+
+        return resposta.json(usuarios);
+    },
+     
     async store(requisicao, resposta) {
         const { usuario } = requisicao.body;
 

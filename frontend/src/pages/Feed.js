@@ -12,9 +12,9 @@ export default function Feed({ match }) {
     useEffect(() => {
         async function carregarDesenvolvedores() {
             
-            const resposta = await api.get('/devs', {
+            const resposta = await api.get('/devs/consultar', {
                 headers: {
-                    usuario: match.params.id,
+                    idUsuarioLogado: match.params.id,
                 }
             });
             console.log(resposta.data); 
@@ -32,10 +32,10 @@ export default function Feed({ match }) {
                 {
                     desenvolvedores.map(dev => (
                         <li key={dev._id}>
-                            <img src={dev.avatar} alt={dev.nome} />
+                            <img src={dev.avatar} alt={dev.nome} className="imgCardPadrao" />
                             <footer>
-                                <strong>{dev.nome}}</strong>
-                                <p>{dev.biografia}}</p>
+                                <strong>{dev.nome}</strong>
+                                <p>{dev.biografia}</p>
                             </footer>
                             <div className="buttons">
                                 <button type="button">

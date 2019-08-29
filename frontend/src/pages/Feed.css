@@ -39,7 +39,6 @@
 
 .feed-container ul li footer p {
     font-size: 14px;
-    line-height: 5px;
     color: #999;
     margin-top: 5px;
 }
@@ -67,6 +66,11 @@
 
 .feed-container ul li .buttons button img {
     height: 50px;
-    width: 50;
+    width: 50px;
+}
+
+.feed-container ul li .imgCardPadrao {
+    height: 272px;
+    width: 100%;
 }
 

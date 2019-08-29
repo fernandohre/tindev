@@ -40,15 +40,20 @@ module.exports = {
         }
 
         const resultado  = await axios.get(`https://api.github.com/users/${usuario}`);
-        const { login, bio, avatar_url } = resultado.data;
+        const {name, bio, avatar_url } = resultado.data;
 
-        const desenvolvedor = await Desenvolvedor.create({
-            nome: login,
-            usuario : usuario,
-            biografia : bio,
-            avatar_url
-        });
+        try {
+            const desenvolvedor = await Desenvolvedor.create({
+                nome: name === null || name === 'undefined' || name == "" ? usuario : name,
+                usuario : usuario,
+                biografia : bio,
+                avatar: avatar_url
+            });
 
-        return resposta.json(desenvolvedor);
+            return resposta.json(desenvolvedor);
+        }
+        catch(err) {
+            console.log(err);
+        }
     }
 };
